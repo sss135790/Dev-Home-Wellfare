@@ -24,7 +24,7 @@ A full-stack society management portal for residents and admins.
 
 - **Frontend:** Next.js (React + TailwindCSS)
 - **Backend:** FastAPI (Python)
-- **Database:** PostgreSQL (SQLAlchemy ORM)
+- **Database:** PostgreSQL (SQLAlchemy ORM) and Redis (OTP)
 
 ## Repository Layout
 
@@ -155,11 +155,7 @@ The backend expects variables (typically via `.env` in local dev, and via `docke
 - `OTP_EXPIRY_MINUTES` (optional; default used in code)
 - `EMAIL`, `PASSWORD` (for OTP email sending)
 
-## Security Notes (Important)
 
-- OTP storage is currently an in-memory dict (in `backend/utils/otp.py`).
-  - OTPs will be lost on backend restart and are not shared across multiple backend instances.
-- CORS is configured as `allow_origins=["*"]` (development-friendly).
 
 ## License
 
