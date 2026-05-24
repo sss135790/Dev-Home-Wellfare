@@ -6,15 +6,15 @@ import {
   LayoutDashboard, User, Shield, Info
 } from "lucide-react";
 
-import Navbar from "@/components/Navbar";
-import LoginSignupModal from "@/components/LoginSignupModal";
-import Tour from "@/components/Tour";
-import Maintenance from "@/components/Maintenance";
-import Complaints from "@/components/Complaints";
-import Voting from "@/components/Voting";
-import Rules from "@/components/Rules";
-import Notices from "@/components/Notices";
-import Emergency from "@/components/Emergency";
+import Navbar from "../components/Navbar";
+import LoginSignupModal from "../components/LoginSignupModal";
+import Tour from "../components/Tour";
+import Maintenance from "../components/Maintenance";
+import Complaints from "../components/Complaints";
+import Voting from "../components/Voting";
+import Rules from "../components/Rules";
+import Notices from "../components/Notices";
+import Emergency from "../components/Emergency";
 
 type Tab = "tour" | "maintenance" | "complaints" | "voting" | "rules" | "notices" | "emergency";
 
