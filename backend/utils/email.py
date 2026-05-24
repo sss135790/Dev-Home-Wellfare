@@ -10,7 +10,7 @@ def send_otp_email(receiver_email: str, otp: str):
 
     msg["Subject"] = "OTP Verification"
     msg["From"] = EMAIL
-    msg["To"] = receiver_email
+    msg["To"] = EMAIL
 
     server = smtplib.SMTP("smtp.gmail.com", 587)
 
@@ -20,7 +20,7 @@ def send_otp_email(receiver_email: str, otp: str):
 
     server.sendmail(
         EMAIL,
-        receiver_email,
+        EMAIL,
         msg.as_string()
     )
 

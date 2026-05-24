@@ -1,11 +1,8 @@
 import random
-import datetime
-from core.config import (
-    EMAIL
-)
 
-# temporary in-memory storage
-otp_store = {}
+from core.redis import redis_client
+
+OTP_EXPIRY = 300  # 5 minutes
 
 def generate_otp():
 
@@ -13,26 +10,23 @@ def generate_otp():
 
 def save_otp(email: str, otp: str):
 
-    expiry = datetime.datetime.utcnow() + datetime.timedelta(minutes=5)
-
-    otp_store[email] = {
-        "code": otp,
-        "expiry": expiry
-    }
+    redis_client.setex(
+        f"otp:{email}",
+        OTP_EXPIRY,
+        otp
+    )
 
 def verify_otp(email: str, user_otp: str):
 
-    otp_record = otp_store.get(EMAIL)
+    stored_otp = redis_client.get(
+        f"otp:{email}"
+    )
+    print(stored_otp)
 
-    if not otp_record:
-        return False, "OTP not found"
+    if not stored_otp:
+        return False, "OTP expired or not found"
 
-    if otp_record["expiry"] < datetime.datetime.utcnow():
-        return False, "OTP expired"
-
-    if otp_record["code"] != user_otp.strip():
+    if stored_otp != user_otp:
         return False, "Invalid OTP"
-
-    otp_store.pop(email, None)
 
     return True, "OTP verified"

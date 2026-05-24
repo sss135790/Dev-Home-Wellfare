@@ -34,7 +34,7 @@ export default function LoginSignupModal({ onSuccess }: LoginSignupModalProps) {
       const res = await fetch(`${API_URL}/api/auth/send-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: process.env.NEXT_PUBLIC_EMAIL_ID }),
+        body: JSON.stringify({ email: gmail }),
       });
       const data = await res.json();
       if (!res.ok) {
