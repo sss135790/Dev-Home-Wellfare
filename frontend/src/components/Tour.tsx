@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Eye, MapPin, Users, Key, LayoutGrid, X, Building, CheckCircle } from "lucide-react";
-import { BLOCKS } from "./Constants";
+import { BlockData, BLOCKS } from "./Constants";
 
 export default function Tour() {
   const [selectedBlock, setSelectedBlock] = useState<BlockData | null>(null);

@@ -3,7 +3,7 @@ export const MONTH_NAMES = [
   "July", "August", "September", "October", "November", "December"
 ];
 
-interface EmergencyContact {
+export interface EmergencyContact {
   id: string;
   name: string;
   profession: string;
@@ -55,7 +55,7 @@ export const CONTACT_NUMBERS: EmergencyContact[] = [
   }
 ];
 
-interface RuleItem {
+export interface RuleItem {
   id: string;
   title: string;
   category: string;
@@ -123,7 +123,7 @@ export const RULES_DATA: RuleItem[] = [
   }
 ];
 
-interface BlockData {
+export interface BlockData {
   id: string;
   name: string;
   image: string;
