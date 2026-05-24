@@ -142,26 +142,6 @@ def login(
             detail="Invalid role"
         )
 
-    # Admin OTP
-    if db_user.role == "admin":
-
-        if not login_in.otp:
-            raise HTTPException(
-                status_code=400,
-                detail="OTP required"
-            )
-
-        is_valid, message = verify_otp(
-            db_user.gmail,
-            login_in.otp
-        )
-
-        if not is_valid:
-            raise HTTPException(
-                status_code=400,
-                detail=message
-            )
-
     access_token = create_access_token(
         data={"sub": db_user.username}
     )
