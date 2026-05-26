@@ -102,7 +102,7 @@ export default function LoginSignupModal({ onSuccess }: LoginSignupModalProps) {
         {/* Branding header */}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-300 bg-clip-text text-transparent">
-            Dev Homes Wellfare Society
+            Dev Homes Welfare Society
           </h1>
           <p className="text-slate-400 text-sm mt-1">
             {isLogin ? "Log in to access your resident portal" : "Sign up for society membership"}

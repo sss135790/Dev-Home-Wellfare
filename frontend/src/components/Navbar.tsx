@@ -20,7 +20,7 @@ export default function Navbar({ user, onLogout }: NavbarProps) {
           </div>
           <div>
             <h1 className="text-xl font-bold bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
-              Dev Homes Wellfare Society
+              Dev Homes Welfare Society
             </h1>
             <p className="text-[10px] text-blue-400 font-semibold tracking-wider uppercase">Resident Portal</p>
           </div>

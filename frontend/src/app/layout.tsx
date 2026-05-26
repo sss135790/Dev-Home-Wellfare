@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dev Homes Wellfare Society - Resident Portal",
+  title: "Dev Homes Welfare Society - Resident Portal",
   description: "Resident portal, maintenance payments, voting polls, announcements, and complaints portal.",
 };
 

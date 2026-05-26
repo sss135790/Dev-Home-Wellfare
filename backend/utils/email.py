@@ -6,7 +6,7 @@ from core.config import EMAIL, PASSWORD
 
 def send_otp_email(receiver_email: str, otp: str):
 
-    msg = MIMEText(f"Your OTP code for Dev Home Wellfare Society ADMIN login is: {otp}")
+    msg = MIMEText(f"Your OTP code for Dev Home Welfare Society ADMIN login is: {otp}")
 
     msg["Subject"] = "OTP Verification"
     msg["From"] = EMAIL
