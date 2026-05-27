@@ -11,6 +11,7 @@ from routes.notice import router as notice_router
 from routes.complaint import router as complaint_router
 from routes.poll import router as poll_router
 from routes.maintenance import router as maintenance_router
+from routes.payment import router as payment_router
 
 # Create Tables
 models.Base.metadata.create_all(bind=engine)
@@ -46,3 +47,4 @@ app.include_router(notice_router)
 app.include_router(complaint_router)
 app.include_router(poll_router)
 app.include_router(maintenance_router)
+app.include_router(payment_router)

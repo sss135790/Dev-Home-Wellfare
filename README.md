@@ -3,8 +3,8 @@
 A full-stack society management portal for residents and admins.
 
 ### 👤 Member Login
-- **Username:** `member`
-- **Password:** `member`
+- **Username:** `member6`
+- **Password:** `member6`
 
 ### 🛠️ Admin Login
 - **Username:** `admin1`

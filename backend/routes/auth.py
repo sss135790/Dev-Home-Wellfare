@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 import models.models as models
 import schema.schemas as schemas
@@ -25,6 +26,12 @@ router = APIRouter(
     tags=["Authentication"]
 )
 
+MONTHLY_MAINTENANCE_AMOUNT = 1200
+
+
+# ==========================================
+# SEND OTP
+# ==========================================
 @router.post("/send-otp")
 def send_otp(request: schemas.OTPRequest):
 
@@ -44,9 +51,13 @@ def send_otp(request: schemas.OTPRequest):
 
     return {
         "message": "OTP sent successfully",
-        "otp": code 
+        "otp": code
     }
 
+
+# ==========================================
+# REGISTER
+# ==========================================
 @router.post("/register", response_model=schemas.Token)
 def register(
     user_in: schemas.UserCreate,
@@ -64,7 +75,9 @@ def register(
             detail="User already exists"
         )
 
-    # Admin OTP Verification
+    # ==========================================
+    # ADMIN OTP VERIFICATION
+    # ==========================================
     if user_in.role == "admin":
 
         if not user_in.otp:
@@ -84,6 +97,9 @@ def register(
                 detail=message
             )
 
+    # ==========================================
+    # CREATE USER
+    # ==========================================
     new_user = models.User(
         username=user_in.username,
         gmail=user_in.gmail,
@@ -100,6 +116,60 @@ def register(
     db.commit()
     db.refresh(new_user)
 
+    # ==========================================
+    # CREATE MAINTENANCE DATA
+    # CURRENT YEAR ONLY
+    # ==========================================
+
+    current_date = datetime.now()
+
+    current_year = current_date.year
+    current_month = current_date.month
+
+    maintenance_rows = []
+
+    for month in range(1, 13):
+
+        # ==========================================
+        # PAST MONTHS => PAID
+        # CURRENT/FUTURE => UNPAID
+        # ==========================================
+
+        if month < current_month:
+
+            status = "paid"
+
+            transaction_id = "SYSTEM_GENERATED"
+
+            payment_date = datetime.utcnow()
+
+        else:
+
+            status = "unpaid"
+
+            transaction_id = None
+
+            payment_date = None
+
+        bill = models.MaintenanceBill(
+            user_id=new_user.id,
+            month=month,
+            year=current_year,
+            amount=MONTHLY_MAINTENANCE_AMOUNT,
+            status=status,
+            transaction_id=transaction_id,
+            payment_date=payment_date
+        )
+
+        maintenance_rows.append(bill)
+
+    db.add_all(maintenance_rows)
+
+    db.commit()
+
+    # ==========================================
+    # ACCESS TOKEN
+    # ==========================================
     access_token = create_access_token(
         data={"sub": new_user.username}
     )
@@ -110,6 +180,10 @@ def register(
         "user": new_user
     }
 
+
+# ==========================================
+# LOGIN
+# ==========================================
 @router.post("/login", response_model=schemas.Token)
 def login(
     login_in: schemas.UserLogin,
@@ -135,7 +209,9 @@ def login(
             detail="Invalid credentials"
         )
 
-    # Role Validation
+    # ==========================================
+    # ROLE VALIDATION
+    # ==========================================
     if db_user.role != login_in.role:
         raise HTTPException(
             status_code=400,
